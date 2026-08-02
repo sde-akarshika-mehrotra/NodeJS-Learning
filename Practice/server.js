@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
     if (err) {
       if (err.code === "ENOENT") {
         res.writeHead(404, { "Content-Type": "text/html" });
-        res.end("404: File Not Found Bro!")
+        res.end("404: File Not Found Bro!");
       }
     } else {
       res.writeHead(200, { "Content-Type": contentType });
