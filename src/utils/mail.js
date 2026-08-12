@@ -1,8 +1,8 @@
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
 
-const sendEmail = async (ooptions) => {
-  const amilGeneratot = new Mailgen({
+const sendEmail = async (options) => {
+  const mailGenerator = new Mailgen({
     theme: "default",
     product: {
       name: "Task Manager",
@@ -11,7 +11,7 @@ const sendEmail = async (ooptions) => {
   });
 
   const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
-  const emailHTML = mailGenerator.generatePlaintext(options.mailgenContent);
+  const emailHTML = mailGenerator.generate(options.mailgenContent);
 
   const transporter = nodemailer.createTransport({
     host: process.env.MAILTRAP_SMTP_HOST,
@@ -27,7 +27,7 @@ const sendEmail = async (ooptions) => {
     to: options.email,
     subject: options.subject,
     text: emailTextual,
-    html: emailHtml,
+    html: emailHTML,
   };
 
   try {
@@ -60,7 +60,7 @@ const emailVerificcationMailgenContent = (username, verificationUrl) => {
   };
 };
 
-const forgotPasswordMailgenContent = (username, password) => {
+const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
   return {
     body: {
       name: username,
